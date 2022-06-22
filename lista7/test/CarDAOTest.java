@@ -26,7 +26,7 @@ public class CarDAOTest {
     }
 
     @Test
-    void test() {
+    void testFindMileageBetweenYears() {
         HashMap<String, Long> mileage = new HashMap<>();
         mileage.put("1999", 2000L);
         mileage.put("2000", 1000L);
@@ -44,7 +44,7 @@ public class CarDAOTest {
     }
 
     @Test
-    void invalidCarId() {
+    void testInvalidCarId() {
         when(carRepository.getCarById(1)).thenReturn(null);
 
         Assertions.assertThrows(NoSuchElementException.class, () -> {
