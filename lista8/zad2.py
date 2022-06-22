@@ -9,7 +9,7 @@ options.add_argument("--headless")
 
 driver = webdriver.Firefox(options=options)
 
-driver.get(os.path.abspath("page/index.html"))
+driver.get('file:///' + os.path.abspath("page/index.html"))
 
 driver.find_element(by=By.PARTIAL_LINK_TEXT, value="Gallery").click()
 

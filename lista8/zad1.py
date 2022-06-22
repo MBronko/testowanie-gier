@@ -6,7 +6,7 @@ from selenium.webdriver.remote.webelement import WebElement
 
 driver = webdriver.Firefox()
 
-driver.get(os.path.abspath("page/index.html"))
+driver.get('file:///' + os.path.abspath("page/index.html"))
 
 driver.find_element(by=By.PARTIAL_LINK_TEXT, value="Contact").click()
 
