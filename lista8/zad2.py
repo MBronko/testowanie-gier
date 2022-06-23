@@ -27,3 +27,5 @@ for elem in elems:
     print(url)
 
     request.urlretrieve(elem.get_attribute("src"), f'{target_dir}/{filename}')
+
+driver.close()

@@ -1,6 +1,7 @@
 import os
 from selenium import webdriver
-from selenium.webdriver.support.ui import Select
+from selenium.webdriver.support.ui import Select, WebDriverWait
+from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 
@@ -9,9 +10,6 @@ driver = webdriver.Firefox()
 driver.get('file:///' + os.path.abspath("page/index.html"))
 
 driver.find_element(by=By.PARTIAL_LINK_TEXT, value="Contact").click()
-
-# textarea_elems = driver.find_elements(by=By.TAG_NAME, value="textarea")
-# text_input_elems = driver.find_elements(by=By.CSS_SELECTOR, value='#contact_form > input[type="text"]')
 
 ids = [
     "name",
@@ -25,10 +23,10 @@ elems: dict[str, WebElement] = {_id: driver.find_element(by=By.ID, value=_id) fo
 
 for elem in list(elems.values())[:3]:
     if elem.get_attribute("value") == '':
-        print("text pusty")
+        print("pusty")
 
-if elems['message'].text == '':
-    print("textarea puste")
+if elems["message"].text == '':
+    print("pusty")
 
 text_values = [
     "Test Name",
@@ -38,14 +36,19 @@ text_values = [
 ]
 option_name = "Poland"
 
-select = Select(elems['country'])
+select = Select(elems["country"])
 select.select_by_visible_text(option_name)
 
 for value, elem in zip(text_values, elems.values()):
+    elem.clear()
     elem.send_keys(value)
 
 driver.save_screenshot("ss.png")
 
 driver.find_element(by=By.CSS_SELECTOR, value='#contact_form > input[type="submit"]').click()
 
+WebDriverWait(driver, 10).until(expected_conditions.alert_is_present())  # zadanie 5
+
 driver.switch_to.alert.accept()
+
+driver.close()
