@@ -85,13 +85,6 @@ class ContactPage(BasePage):
     message_element = MessageElement()
     country_element = CountryElement()
 
-    elems = [
-        name_element,
-        surname_element,
-        email_element,
-        message_element
-    ]
-
     def __init__(self, driver):
         super().__init__(driver)
 
@@ -112,7 +105,7 @@ class TestContactForm:
 
         self.driver.get('file:///' + os.path.abspath("page/index.html"))
 
-    def submit_form(self):
+    def fill_and_submit_contact_form(self):
         main_page = MainPage(self.driver)
 
         main_page.go_to_contact()
@@ -143,5 +136,5 @@ class TestContactForm:
 
 
 test_contact_form = TestContactForm()
-test_contact_form.submit_form()
+test_contact_form.fill_and_submit_contact_form()
 test_contact_form.tear_down()
