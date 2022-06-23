@@ -1,7 +1,7 @@
 import os
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select, WebDriverWait
-from selenium.webdriver.support import expected_conditions
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 
 
@@ -76,6 +76,8 @@ class MainPage(BasePage):
 
     def go_to_contact(self):
         self.driver.find_element(*MainPageLocators.CONTACT_BUTTON).click()
+        WebDriverWait(self.driver, 30).until(
+            EC.presence_of_element_located(ContactPageLocators.FORM_SUBMIT_BUTTON))  # zadanie 5
 
 
 class ContactPage(BasePage):
@@ -91,7 +93,7 @@ class ContactPage(BasePage):
     def submit_form(self):
         self.driver.find_element(*ContactPageLocators.FORM_SUBMIT_BUTTON).click()
 
-        WebDriverWait(self.driver, 10).until(expected_conditions.alert_is_present())  # zadanie 5
+        WebDriverWait(self.driver, 10).until(EC.alert_is_present())  # zadanie 5
 
         self.driver.switch_to.alert.accept()
 
