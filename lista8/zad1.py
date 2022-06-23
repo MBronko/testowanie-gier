@@ -1,7 +1,7 @@
 import os
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select, WebDriverWait
-from selenium.webdriver.support import expected_conditions
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 
@@ -10,6 +10,9 @@ driver = webdriver.Firefox()
 driver.get('file:///' + os.path.abspath("page/index.html"))
 
 driver.find_element(by=By.PARTIAL_LINK_TEXT, value="Contact").click()
+
+WebDriverWait(driver, 30).until(
+    EC.presence_of_element_located((By.CSS_SELECTOR, '#contact_form > input[type="submit"]')))  # zadanie 5
 
 ids = [
     "name",
@@ -47,7 +50,7 @@ driver.save_screenshot("ss.png")
 
 driver.find_element(by=By.CSS_SELECTOR, value='#contact_form > input[type="submit"]').click()
 
-WebDriverWait(driver, 10).until(expected_conditions.alert_is_present())  # zadanie 5
+WebDriverWait(driver, 10).until(EC.alert_is_present())  # zadanie 5
 
 driver.switch_to.alert.accept()
 
